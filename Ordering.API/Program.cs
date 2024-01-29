@@ -1,9 +1,15 @@
+using Ordering.API;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+var startup = new Startup(builder.Configuration); // My custom startup class.
+
+startup.ConfigureServices(builder.Services); // Add services to the container.
 
 var app = builder.Build();
+startup.Configure(app, app.Environment);
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
